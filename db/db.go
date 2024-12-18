@@ -2,7 +2,7 @@ package db
 
 import (
 	"database/sql"
-	"github.com/lib/pq" // PostgreSQL driver
+	//"github.com/lib/pq" // PostgreSQL driver
 	"log"
 )
 

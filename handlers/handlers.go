@@ -3,7 +3,8 @@ package handlers
 import (
 	"database/sql"
 	"fmt"
-	"kong/db"
+	"github.com/gofiber/fiber/v2"
+	"github.com/tushargupta7/kong/db"
 	"strconv"
 )
 

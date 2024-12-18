@@ -2,8 +2,8 @@ package kong
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"kong/db"
-	"kong/handlers"
+	"github.com/tushargupta7/kong/db"
+	"github.com/tushargupta7/kong/handlers"
 	"log"
 )
 
