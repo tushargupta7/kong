@@ -1,4 +1,4 @@
-# Project Name
+# Service Backend
 
 This project is a web service built using the Fiber framework in Go. It provides CRUD operations for managing services, including creating, updating, deleting, and fetching services with pagination and filtering.
 
