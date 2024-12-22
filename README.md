@@ -144,3 +144,6 @@ Example error response:
     }
 }
 ```
+
+Postman Collection
+You can find the Postman collection for this project [here](https://github.com/tushargupta7/kong/blob/main/postman_collection.json)
