@@ -1,0 +1,494 @@
+{
+	"info": {
+		"_postman_id": "8e73a777-f20b-420f-85f7-2fb86afb2ebe",
+		"name": "Kong",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1974518"
+	},
+	"item": [
+		{
+			"name": "service",
+			"item": [
+				{
+					"name": "version",
+					"item": [
+						{
+							"name": "Fetch all versions",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{user_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/service/1/version",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"service",
+										"1",
+										"version"
+									]
+								},
+								"description": "Generated from cURL: curl -X GET \"http://localhost:8080/services/1/versions\" -H \"Content-Type: application/json\"\n"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Service Version",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{admin_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/service/1/version/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"service",
+										"1",
+										"version",
+										"1"
+									]
+								},
+								"description": "Generated from cURL: curl -X DELETE http://localhost:3000/services/1/versions/2\n"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Version",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{admin_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"version\": \"1.0.1\",\n  \"release_notes\": \"Bug fixes and performance improvements\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/service/1/version/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"service",
+										"1",
+										"version",
+										"1"
+									]
+								},
+								"description": "Generated from cURL: curl -X PUT http://localhost:3000/services/1/versions/2 \\\n-H \"Content-Type: application/json\" \\\n-d '{\n  \"version\": \"1.0.1\",\n  \"release_notes\": \"Bug fixes and performance improvements\"\n}'\n"
+							},
+							"response": []
+						},
+						{
+							"name": "Create Version",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{admin_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"version\": \"1.0.1\",\n  \"release_notes\": \"Initial release\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/service/1/version",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"service",
+										"1",
+										"version"
+									]
+								},
+								"description": "Generated from cURL: curl -X POST http://localhost:3000/services/1/versions \\\n-H \"Content-Type: application/json\" \\\n-d '{\n  \"version\": \"1.0.0\",\n  \"release_notes\": \"Initial release\"\n}'\n"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Fetch services",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/service?filter=name:Locate&sort=created_at:desc&page=1&limit=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"service"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "name:Locate"
+								},
+								{
+									"key": "sort",
+									"value": "created_at:desc"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							]
+						},
+						"description": "Generated from cURL: curl -X GET \"http://localhost:8080/services?filter=name:Locate&sort=created_at:desc&page=1&limit=10\" \\\n     -H \"Accept: application/json\"\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Sort by name desc",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/service?sortBy=name&order=asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"service"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "name"
+								},
+								{
+									"key": "order",
+									"value": "asc"
+								}
+							]
+						},
+						"description": "Generated from cURL: curl -X GET \"http://localhost:8080/services?sortBy=name&order=desc\"\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Sort by created_at",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/service?sortBy=created_at&order=asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"service"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "created_at"
+								},
+								{
+									"key": "order",
+									"value": "asc"
+								}
+							]
+						},
+						"description": "Generated from cURL: curl -X GET \"http://localhost:8080/services?sortBy=created_at\"\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Search and Sort",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/service?search=notif&sortBy=name&order=asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"service"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "notif"
+								},
+								{
+									"key": "sortBy",
+									"value": "name"
+								},
+								{
+									"key": "order",
+									"value": "asc"
+								}
+							]
+						},
+						"description": "Generated from cURL: curl -X GET \"http://localhost:8080/services?search=Notify&sortBy=name&order=desc\"\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "login",
+			"item": [
+				{
+					"name": "User Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"user\",\n    \"password\": \"User@123\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST http://localhost:3000/login \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"username\": \"user\",\n    \"password\": \"user_password\"\n  }'\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"Admin@123\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST http://localhost:3000/login \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"username\": \"admin\",\n    \"password\": \"admin_password\"\n  }'\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Fetch specific service",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{user_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/service/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"service",
+						"1"
+					]
+				},
+				"description": "Generated from cURL: curl -X GET \"http://localhost:8080/services/1\" -H \"Content-Type: application/json\"\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Service",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{admin_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/service/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"service",
+						"1"
+					]
+				},
+				"description": "Generated from cURL: curl -X DELETE http://localhost:3000/services/1\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Service",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{admin_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"My New Service\",\n  \"description\": \"This is a description of my new service.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/service",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"service"
+					]
+				},
+				"description": "Generated from cURL: curl -X POST http://localhost:3000/services \\\n-H \"Content-Type: application/json\" \\\n-d '{\n  \"name\": \"My New Service\",\n  \"description\": \"This is a description of my new service.\"\n}'\n"
+			},
+			"response": []
+		}
+	]
+}
