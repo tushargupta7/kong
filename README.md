@@ -40,7 +40,7 @@ To start the server, run:
 go run main.go
 ```
 
-The server will start on the configured port (default is `:3000`). You can then use tools like `curl` or Postman to interact with the API.
+The server will start on the configured port (default is `:8080`). You can then use tools like `curl` or Postman to interact with the API.
 
 ## API Endpoints
 
@@ -61,7 +61,7 @@ The server will start on the configured port (default is `:3000`). You can then 
 
 ### Create a Service
 
-- **URL:** `/services`
+- **URL:** `/service`
 - **Method:** `POST`
 - **Headers:**
     - `Authorization: Bearer <token>`
@@ -78,7 +78,7 @@ The server will start on the configured port (default is `:3000`). You can then 
 
 ### Update a Service
 
-- **URL:** `/services/:id`
+- **URL:** `/service/:id`
 - **Method:** `PUT`
 - **Headers:**
     - `Authorization: Bearer <token>`
@@ -96,7 +96,7 @@ The server will start on the configured port (default is `:3000`). You can then 
 
 ### Delete a Service
 
-- **URL:** `/services/:id`
+- **URL:** `/service/:id`
 - **Method:** `DELETE`
 - **Headers:**
     - `Authorization: Bearer <token>`
@@ -104,24 +104,24 @@ The server will start on the configured port (default is `:3000`). You can then 
     - `200 OK`: Service deleted successfully.
     - `500 Internal Server Error`: Failed to delete service.
 
-### Get Services
+### Get service
 
-- **URL:** `/services`
+- **URL:** `/service`
 - **Method:** `GET`
 - **Headers:**
     - `Authorization: Bearer <token>`
 - **Query Parameters:**
-    - `search`: Search term for filtering services.
+    - `search`: Search term for filtering service.
     - `sort_by`: Field to sort by.
     - `order`: Sort order (`asc` or `desc`).
     - `page`: Page number for pagination.
     - `limit`: Number of items per page.
 - **Responses:**
-    - `200 OK`: List of services.
+    - `200 OK`: List of service.
 
 ### Get a Single Service
 
-- **URL:** `/services/:id`
+- **URL:** `/service/:id`
 - **Method:** `GET`
 - **Headers:**
     - `Authorization: Bearer <token>`
