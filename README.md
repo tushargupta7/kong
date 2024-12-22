@@ -44,10 +44,27 @@ The server will start on the configured port (default is `:3000`). You can then 
 
 ## API Endpoints
 
+### Login
+
+- **URL:** `/login`
+- **Method:** `POST`
+- **Request Body:**
+    ```json
+    {
+        "username": "your_username",
+        "password": "your_password"
+    }
+    ```
+- **Responses:**
+    - `200 OK`: Login successful, returns a token.
+    - `401 Unauthorized`: Invalid credentials.
+
 ### Create a Service
 
 - **URL:** `/services`
 - **Method:** `POST`
+- **Headers:**
+    - `Authorization: Bearer <token>`
 - **Request Body:**
     ```json
     {
@@ -63,6 +80,8 @@ The server will start on the configured port (default is `:3000`). You can then 
 
 - **URL:** `/services/:id`
 - **Method:** `PUT`
+- **Headers:**
+    - `Authorization: Bearer <token>`
 - **Request Body:**
     ```json
     {
@@ -79,6 +98,8 @@ The server will start on the configured port (default is `:3000`). You can then 
 
 - **URL:** `/services/:id`
 - **Method:** `DELETE`
+- **Headers:**
+    - `Authorization: Bearer <token>`
 - **Responses:**
     - `200 OK`: Service deleted successfully.
     - `500 Internal Server Error`: Failed to delete service.
@@ -87,6 +108,8 @@ The server will start on the configured port (default is `:3000`). You can then 
 
 - **URL:** `/services`
 - **Method:** `GET`
+- **Headers:**
+    - `Authorization: Bearer <token>`
 - **Query Parameters:**
     - `search`: Search term for filtering services.
     - `sort_by`: Field to sort by.
@@ -100,6 +123,8 @@ The server will start on the configured port (default is `:3000`). You can then 
 
 - **URL:** `/services/:id`
 - **Method:** `GET`
+- **Headers:**
+    - `Authorization: Bearer <token>`
 - **Responses:**
     - `200 OK`: Service details.
     - `400 Bad Request`: Invalid service ID.
