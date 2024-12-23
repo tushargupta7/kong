@@ -22,7 +22,6 @@ func InitDB(connStr ...string) *errors.AppError {
 		finalConnStr = defaultConnStr
 	}
 
-	// Use existing DB connection if set (e.g., in tests)
 	if DB == nil {
 		var err error
 		DB, err = sql.Open("postgres", finalConnStr)

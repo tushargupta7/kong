@@ -3,7 +3,7 @@ package errors
 import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
-	"github.com/tushargupta7/kong/logger" // Import your logger package
+	"github.com/tushargupta7/kong/logger"
 )
 
 // AppError defines a custom error structure
@@ -24,10 +24,8 @@ func (e *AppError) Error() string {
 }
 
 func New(statusCode int, message string, err error, context map[string]interface{}) *AppError {
-	// Log the error when creating an AppError
 	log.Error(message, context)
 
-	// Return the AppError
 	return &AppError{
 		StatusCode: statusCode,
 		Message:    message,
@@ -43,7 +41,7 @@ func ErrorHandler(c *fiber.Ctx) error {
 			// If it's an AppError, return the response based on AppError properties
 			return c.Status(appErr.StatusCode).JSON(fiber.Map{
 				"error":   appErr.Message,
-				"details": appErr.Context, // Include context data if necessary
+				"details": appErr.Context,
 			})
 		}
 
