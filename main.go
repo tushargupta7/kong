@@ -4,6 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/tushargupta7/kong/errors"
 	"github.com/tushargupta7/kong/handlers"
+	"github.com/tushargupta7/kong/migrations"
 	"github.com/tushargupta7/kong/repositories"
 	"github.com/tushargupta7/kong/routes"
 	"log"
@@ -19,7 +20,10 @@ func main() {
 		os.Exit(1) // Exit with a non-zero code to indicate failure
 	}
 
-	// Initialize the service repository
+	// Run migrations
+	migrations.Migrate(database.DB)
+
+	// Initialize the service repository , similar to be done for other entities
 	serviceRepo := repositories.NewServiceRepository(database.DB)
 
 	// Initialize the service handler with the repository
@@ -27,7 +31,7 @@ func main() {
 
 	// Initialize Fiber
 	app := fiber.New()
-	app.Use(errorHandler)
+	app.Use(errors.ErrorHandler)
 
 	// Register routes
 	routes.RegisterServiceRoutes(app)
@@ -36,24 +40,4 @@ func main() {
 
 	// Start the server
 	log.Fatal(app.Listen(":8080"))
-}
-
-func errorHandler(c *fiber.Ctx) error {
-	// Check if the error is of type AppError
-	if err := c.Next(); err != nil {
-		if appErr, ok := err.(*errors.AppError); ok {
-			// If it's an AppError, return the response based on AppError properties
-			return c.Status(appErr.StatusCode).JSON(fiber.Map{
-				"error":   appErr.Message,
-				"code":    appErr.Err,
-				"details": appErr.Context, // Include context data if necessary
-			})
-		}
-
-		// If it's not an AppError, return a generic 500 internal server error
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"error": "Internal Server Error",
-		})
-	}
-	return nil
 }

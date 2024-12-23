@@ -2,6 +2,7 @@ package errors
 
 import (
 	"fmt"
+	"github.com/gofiber/fiber/v2"
 	"github.com/tushargupta7/kong/logger" // Import your logger package
 )
 
@@ -33,4 +34,23 @@ func New(statusCode int, message string, err error, context map[string]interface
 		Err:        err,
 		Context:    context,
 	}
+}
+
+func ErrorHandler(c *fiber.Ctx) error {
+	// Check if the error is of type AppError
+	if err := c.Next(); err != nil {
+		if appErr, ok := err.(*AppError); ok {
+			// If it's an AppError, return the response based on AppError properties
+			return c.Status(appErr.StatusCode).JSON(fiber.Map{
+				"error":   appErr.Message,
+				"details": appErr.Context, // Include context data if necessary
+			})
+		}
+
+		// If it's not an AppError, return a generic 500 internal server error
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": "Internal Server Error",
+		})
+	}
+	return nil
 }
