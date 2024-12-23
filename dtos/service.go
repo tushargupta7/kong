@@ -1,6 +1,8 @@
 package dtos
 
-import "time"
+import (
+	"time"
+)
 
 // CreateServiceRequest defines the payload for creating a new service
 type CreateServiceRequest struct {
@@ -16,9 +18,10 @@ type UpdateServiceRequest struct {
 
 // ServiceResponse defines the structure of a service response
 type ServiceResponse struct {
-	ID          uint      `json:"id"`
-	Name        string    `json:"name"`
-	Description string    `json:"description"`
-	CreatedAt   time.Time `json:"created_at"`
-	UpdatedAt   time.Time `json:"updated_at"`
+	ID           uint      `json:"id"`
+	Name         string    `json:"name"`
+	Description  string    `json:"description"`
+	CreatedAt    time.Time `json:"created_at"`
+	UpdatedAt    time.Time `json:"updated_at"`
+	VersionCount int       `json:"version_count"`
 }

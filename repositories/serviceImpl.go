@@ -29,8 +29,11 @@ func (r *serviceRepositoryImpl) InsertService(name, description string) (dtos.Se
 
 func (r *serviceRepositoryImpl) GetServiceByID(id int64) (dtos.ServiceResponse, error) {
 	var service dtos.ServiceResponse
-	query := "SELECT id, name, description, created_at, updated_at FROM services WHERE id = $1"
-	err := r.db.QueryRow(query, id).Scan(&service.ID, &service.Name, &service.Description, &service.CreatedAt, &service.UpdatedAt)
+	query := `SELECT s.id, s.name, s.description, s.created_at, s.updated_at,
+	          (SELECT COUNT(*) FROM versions v WHERE v.service_id = s.id) AS version_count
+	          FROM services s
+	          WHERE s.id = $1`
+	err := r.db.QueryRow(query, id).Scan(&service.ID, &service.Name, &service.Description, &service.CreatedAt, &service.UpdatedAt, &service.VersionCount)
 	if err != nil {
 		return dtos.ServiceResponse{}, err
 	}
@@ -73,11 +76,12 @@ func (r *serviceRepositoryImpl) GetServices(search, sortBy, order string, limit,
 		order = "asc"
 	}
 
-	query := `SELECT id, name, description, created_at, updated_at
-  FROM services
-  WHERE name ILIKE $1
-  ORDER BY ` + sortBy + ` ` + order + `
-  LIMIT $2 OFFSET $3`
+	query := `SELECT s.id, s.name, s.description, s.created_at, s.updated_at, 
+          (SELECT COUNT(*) FROM versions v WHERE v.service_id = s.id) AS version_count
+          FROM services s
+          WHERE s.name ILIKE $1
+          ORDER BY ` + sortBy + ` ` + order + `
+          LIMIT $2 OFFSET $3`
 
 	rows, err := r.db.Query(query, "%"+search+"%", limit, offset)
 	if err != nil {
@@ -88,7 +92,7 @@ func (r *serviceRepositoryImpl) GetServices(search, sortBy, order string, limit,
 	var services []dtos.ServiceResponse
 	for rows.Next() {
 		var service dtos.ServiceResponse
-		if err := rows.Scan(&service.ID, &service.Name, &service.Description, &service.CreatedAt, &service.UpdatedAt); err != nil {
+		if err := rows.Scan(&service.ID, &service.Name, &service.Description, &service.CreatedAt, &service.UpdatedAt, &service.VersionCount); err != nil {
 			return nil, err
 		}
 		services = append(services, service)
